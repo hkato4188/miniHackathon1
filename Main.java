@@ -18,37 +18,14 @@ public class Main {
 
         //Step 2: Read data from SalesReps.csv to find userID associated with sales rep
         try{
-            List<SalesRep> salesReps = readSalesReps("./src/SalesReps.csv", lastName);
+            List<SalesRep> salesReps = CSVImporter.readSalesReps("./src/SalesReps.csv");
+            List<Company> companies = CSVImporter.readCompanies("./src/Company.csv");
+            System.out.println("Yes! We did it");
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage().getClass());
         }
     }
 
-    // Method to read SalesRep data from a CSV file
-    // Removed lastName parameter and comparison check per discussion
-    private static List<SalesRep> readSalesReps(String filePath) throws IOException {
-        List<SalesRep> salesReps = new ArrayList<>();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(filePath));
-            String line;
-            br.readLine(); // Skip header that contains fields of csv file
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                salesReps.add(new SalesRep(parts[0].trim(), parts[1].trim(), parts[2].trim()));
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }finally{
-            if (br!=null){
-                try{
-                    br.close();
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        return salesReps;
-    }
+
 }
 
