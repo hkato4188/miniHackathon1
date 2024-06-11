@@ -25,7 +25,8 @@ public class Main {
     }
 
     // Method to read SalesRep data from a CSV file
-    private static List<SalesRep> readSalesReps(String filePath, String lastName) throws IOException {
+    // Removed lastName parameter and comparison check per discussion
+    private static List<SalesRep> readSalesReps(String filePath) throws IOException {
         List<SalesRep> salesReps = new ArrayList<>();
         BufferedReader br = null;
         try {
@@ -34,14 +35,8 @@ public class Main {
             br.readLine(); // Skip header that contains fields of csv file
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                System.out.println("comparing " + lastName + " to " + parts[2].trim());
-                System.out.println("Do they match? " + lastName.compareTo(parts[2].trim()));
-                if(lastName.compareTo(parts[2].trim()) == 0){
-                    System.out.println("we have a match! " + parts[0].trim() +" " + parts[1].trim() +" " + parts[2].trim());
-                    salesReps.add(new SalesRep(parts[0].trim(), parts[1].trim(), parts[2].trim()));
-                }
+                salesReps.add(new SalesRep(parts[0].trim(), parts[1].trim(), parts[2].trim()));
             }
-            System.out.println("Sorry we do not have data on that Sales Rep!");
         }catch(IOException e){
             e.printStackTrace();
         }finally{
