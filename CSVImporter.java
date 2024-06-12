@@ -21,6 +21,8 @@ public class CSVImporter {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 salesReps.add(new SalesRep(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+                //System.out.println("Hey guys we are currently importing the sales reps and looking at this rep:");
+                //System.out.println(parts[0].trim() + " " + parts[1].trim() + " " + parts[2].trim());
             }
         }catch(IOException e){
             e.printStackTrace();
@@ -53,7 +55,7 @@ public class CSVImporter {
                         String name = values[3].trim();         // Name
                         String country = values[5].trim();      // Country
                         String industry = values[8].trim();     // Industry
-                        String employeeNum = values[9].trim();                       //Number of employees
+                        String employeeNum = values[9].trim();  //Number of employees
                 Company company = new Company(orgId, salesRepId, name, country, industry, employeeNum);
                 companies.add(company);
             }
@@ -69,6 +71,8 @@ public class CSVImporter {
 
         for (int i = 0; i < line.length(); i++) {
             char c = line.charAt(i);
+            //Handle the quotation marks if you have a comma with a three part name
+            //if the current char is a quote, change withinQuotes to true--> since it is
             if (c == '"') {
                 withinQuotes = !withinQuotes;
             } else if (c == ',' && !withinQuotes) {

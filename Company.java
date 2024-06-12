@@ -25,10 +25,12 @@ public class Company {
 
 
     public void displayCompanyData() {
-        System.out.println("Company name: " + this.getName());
-        System.out.println("Country: " + this.getCountry());
-        System.out.println("Industry : " + this.getIndustry());
-        System.out.println("Number of employees: " + this.getNumberOfEmployees());
-        System.out.println("Company organization ID: " + this.getOrgId());
+        System.out.println("------------------------------------");
+        System.out.println("1. Company name: " + this.getName());
+        System.out.println("2. Country: " + this.getCountry());
+        System.out.println("3. Industry : " + this.getIndustry());
+        System.out.println("4. Number of employees: " + this.getNumberOfEmployees());
+        System.out.println("5. Company organization ID: " + this.getOrgId());
+        System.out.println("");
     }
 }
