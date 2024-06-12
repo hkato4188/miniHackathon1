@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.*;
 
+//See Google Doc: https://docs.google.com/document/d/1Bawk2sVIq7YrgOhomFduT1no7CjPUwVH-sMt5sDgNPo/edit
+
 public class Main {
     public static void main(String[] args) {
 
@@ -10,7 +12,7 @@ public class Main {
         System.out.println("Please enter a Sales Representative's last name to retrieve the associated data: ");
         String lastName = scanner.nextLine().toLowerCase().trim();
 
-        //Step 2: Read data from SalesReps.csv to find userID associated with sales rep
+        //Step 2: Read data from SalesReps.csv and Company.csv to find userID associated with sales rep
         try{
             List<SalesRep> salesReps = CSVImporter.readSalesReps("./src/SalesReps.csv");
             List<Company> companies = CSVImporter.readCompanies("./src/Company.csv");
