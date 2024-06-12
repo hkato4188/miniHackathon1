@@ -23,12 +23,12 @@ public class Company {
     public String getIndustry() { return industry; }
     public String getNumberOfEmployees() { return numberOfEmployees; }
 
-//    @Override
-//    public String toString() {
-//        return "Organization ID: " + organizationId + "\n" +
-//                "Company Name: " + name + "\n" +
-//                "Country: " + country + "\n" +
-//                "Industry: " + industry + "\n" +
-//                "Number of Employees: " + numberOfEmployees + "\n";
-//    }
+
+    public void displayCompanyData() {
+        System.out.println("Company name: " + this.getName());
+        System.out.println("Country: " + this.getCountry());
+        System.out.println("Industry : " + this.getIndustry());
+        System.out.println("Number of employees: " + this.getNumberOfEmployees());
+        System.out.println("Company organization ID: " + this.getOrgId());
+    }
 }

@@ -45,19 +45,42 @@ public class CSVImporter {
             String line;
             br.readLine(); // Skip header
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
+                String[] values = splitCSVLine(line);
                 //System.out.println(values[1] + " " + values[2] + " " + values[3] + " " + values[5] + " " + values[8] + " " + values[9]);
                 //System.out.println("The type of value for employees is: " + " " + values[9].getClass().getName());
-                Company company = new Company(
-                        values[1].trim(), // Organization Id
-                        values[2].trim(), // Sales Repid
-                        values[3].trim(), // Name
-                        values[5].trim(), // Country
-                        values[8].trim(), // Industry
-                        values[9].trim()); //Number of employees
+                        String orgId = values[1].trim();        // Organization Id
+                        String salesRepId = values[2].trim();   // Sales Repid
+                        String name = values[3].trim();         // Name
+                        String country = values[5].trim();      // Country
+                        String industry = values[8].trim();     // Industry
+                        String employeeNum = values[9].trim();                       //Number of employees
+                Company company = new Company(orgId, salesRepId, name, country, industry, employeeNum);
                 companies.add(company);
             }
         }
         return companies;
     }
+
+
+    private static String[] splitCSVLine(String line) {
+        List<String> values = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        boolean withinQuotes = false;
+
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (c == '"') {
+                withinQuotes = !withinQuotes;
+            } else if (c == ',' && !withinQuotes) {
+                values.add(sb.toString());
+                sb.setLength(0);
+            } else {
+                sb.append(c);
+            }
+        }
+
+        values.add(sb.toString()); // Add the last part
+        return values.toArray(new String[0]);
+    }
+
 }
