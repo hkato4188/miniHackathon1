@@ -1,0 +1,29 @@
+Considerations:
+- Name values have commas which makes “,” delimiters like split need extra functionality
+- We can also read through each file once, and create a map of values so that we can do multiple subsequent lookups faster
+
+What are we trying to do?
+- Write a program:
+        Input: Sales Persons Last name
+        Output: data associated with that Last Name
+- What data?
+        Organization Id
+        Company Name
+        Country
+        Industry
+        Number of employees
+- How are we going to do that?
+        We receive user input that represents a sales rep’s last name
+            Use java’s i/o classes to look at SalesRep.csv
+            Use sales rep last name to find their user id
+            Once we find a match -> find the sales rep Id and save it in a variable
+                Look through each line’s last name value in SalesRep.csv
+                If it matches the input last name return the user Id
+                If we do not find a match: print out “no sales rep”
+        Match the sales representatives user id with the sales repId field in Company.csv
+            Use java’s i/o classes to look at Company.csv
+            Use salesRep user id to find associated company through its Sales Repid
+            Once we find a match -> return the requested company info at each index
+                Look through each line’s sales repid value in Company.csv
+                If it matches the user id from SalesRep.csv return the Company object’s requested data
+                If we do not find a match: print out “no associated company data”
