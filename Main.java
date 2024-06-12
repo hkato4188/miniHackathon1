@@ -8,36 +8,53 @@ public class Main {
 
         //Step 1: Create scanner class and take in user input for sales reps last name
         Scanner scanner = new Scanner(System.in);
+        String lastName;
+        Map<String, List<Company>> salesRepCompanies = new HashMap<>();
         System.out.println("Welcome to Stra-tee-ger-eez miniHackathon submission!");
-        System.out.println("Please enter a Sales Representative's last name to retrieve the associated data: ");
-        String lastName = scanner.nextLine().toLowerCase().trim();
+        System.out.println("*********************************************************");
+        while(true){
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Please enter a Sales Representative's last name to retrieve the associated data: ");
+            System.out.println("To leave this program, please enter 'exit' into the prompt: ");
+            lastName = scanner.nextLine().toLowerCase().trim();
 
-        //Step 2: Read data from SalesReps.csv and Company.csv to find userID associated with sales rep
-        try{
-            List<SalesRep> salesReps = CSVImporter.readSalesReps("./src/SalesReps.csv");
-            List<Company> companies = CSVImporter.readCompanies("./src/Company.csv");
-            Map<String, List<Company>> salesRepCompanies = new HashMap<>();
-            salesRepCompanies = createRepToCompaniesMap(salesReps, companies);
-            List<Company> associatedCompanies = salesRepCompanies.get(lastName);
-
-            if (associatedCompanies != null) {
-                String titleCaseLastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
-                System.out.println("Buzz... Buzz...");
-                System.out.println("Computing... Computing...");
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                System.out.println("Here are the companies associated with Sales Representative with the last name: " + titleCaseLastName);
-                for (Company company : associatedCompanies) {
-                    company.displayCompanyData();
-                }
-            } else {
-                System.out.println("No companies found for Sales Rep with last name: " + lastName);
+            if(lastName.equalsIgnoreCase("exit")){
+                System.out.println("Exiting....");
+                break;
             }
+            //Step 2: Read data from SalesReps.csv and Company.csv to find userID associated with sales rep
+            try{
+                List<SalesRep> salesReps = CSVImporter.readSalesReps("./src/SalesReps.csv");
+                List<Company> companies = CSVImporter.readCompanies("./src/Company.csv");
+                salesRepCompanies = createRepToCompaniesMap(salesReps, companies);
+            }catch(Exception e){
+                System.out.println(e.getMessage().getClass());
+            }
+            try{
+                List<Company> associatedCompanies = salesRepCompanies.get(lastName);
 
-            scanner.close();
-        }catch(Exception e){
-            System.out.println(e.getMessage().getClass());
+                if (associatedCompanies != null) {
+                    String titleCaseLastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
+                    System.out.println("Buzz... Buzz...");
+                    System.out.println("Computing... Computing...");
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    System.out.println("Here are the companies associated with Sales Representative with the last name: " + titleCaseLastName);
+                    for (Company company : associatedCompanies) {
+                        company.displayCompanyData();
+                    }
+                } else {
+                    System.out.println("No companies found for Sales Rep with last name: " + lastName);
+                }
+
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
+        scanner.close();
     }
+
+
     // Step 3:
     // Q: How do I want to interact with this program? helps with ideas on how to build function
     // A: Ultimately I want a function that I can call with a sales rep's lastName and returns the associated company data
