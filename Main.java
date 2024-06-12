@@ -12,6 +12,14 @@ public class Main {
         Map<String, List<Company>> salesRepCompanies = new HashMap<>();
         System.out.println("Welcome to Stra-tee-ger-eez miniHackathon submission!");
         System.out.println("*********************************************************");
+        //Step 2: Read data from SalesReps.csv and Company.csv to find userID associated with sales rep
+        try{
+            List<SalesRep> salesReps = CSVImporter.readSalesReps("./src/SalesReps.csv");
+            List<Company> companies = CSVImporter.readCompanies("./src/Company.csv");
+            salesRepCompanies = createRepToCompaniesMap(salesReps, companies);
+        }catch(Exception e){
+            System.out.println(e.getMessage().getClass());
+        }
         while(true){
             System.out.println("----------------------------------------------------------");
             System.out.println("Please enter a Sales Representative's last name to retrieve the associated company data: ");
@@ -23,14 +31,7 @@ public class Main {
                 System.out.println("See ya later! Group 7 OUT.....Strateegereeeeeez!");
                 break;
             }
-            //Step 2: Read data from SalesReps.csv and Company.csv to find userID associated with sales rep
-            try{
-                List<SalesRep> salesReps = CSVImporter.readSalesReps("./src/SalesReps.csv");
-                List<Company> companies = CSVImporter.readCompanies("./src/Company.csv");
-                salesRepCompanies = createRepToCompaniesMap(salesReps, companies);
-            }catch(Exception e){
-                System.out.println(e.getMessage().getClass());
-            }
+
             try{
                 List<Company> associatedCompanies = salesRepCompanies.get(lastName);
 
